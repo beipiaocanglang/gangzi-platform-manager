@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+
+	<bean id="idZkClient" class="com.bizcloud.architect.idgnrt.zk.ZkClientFactoryBean">
+		<property name="connectString" value="${id.zookeeper.address}" />
+	</bean>
+	
+	<bean id="idGenUtil" class="com.bizcloud.architect.idgnrt.IdGenUtil">
+		<property name="zkClient" ref="idZkClient" />
+	</bean>
+
+</beans>

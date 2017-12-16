@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bizcloud.platform.dao.TemplateDAO">
+
+    <insert id="saveTemplateBO" parameterType="MsgTemplateBO">
+        insert into bizcloud_notify_template ( ID, platform_id, template_code, template_name, template_type, template_content, template_example, remark, CREATED_TIME, MODIFIED_TIME, IS_DELETED)
+        values ( #{id}, #{platformId}, #{templateCode}, #{templateName}, #{templateType}, #{templateContent}, #{templateExample}, #{remark}, #{createdTime}, #{modifiedTime}, #{isDeleted})
+    </insert>
+
+    <delete id="deleteTemplateBOById" parameterType="string">
+        DELETE FROM bizcloud_notify_template
+        WHERE id = #{id}
+    </delete>
+
+    <update id="updateTemplateBO" parameterType="MsgTemplateBO">
+        UPDATE bizcloud_notify_template
+        SET MODIFIED_TIME=#{modifiedTime}
+        <if test="platformId!=null and platformId!=''">,platform_id=#{platformId}</if>
+        <if test="templateCode!=null and templateCode!=''">,template_code=#{templateCode}</if>
+        <if test="templateName!=null and templateName!=''">,template_name=#{templateName}</if>
+        <if test="templateType!=null and templateType!=''">,template_type=#{templateType}</if>
+        <if test="templateContent!=null and templateContent!=''">,template_content=#{templateContent}</if>
+        <if test="templateExample!=null and templateExample!=''">,template_example=#{templateExample}</if>
+        <if test="remark!=null and remark!=''">,remark=#{remark}</if>
+        <if test="isDeleted!=null and isDeleted!=''">,is_deleted=#{isDeleted}</if>
+        WHERE id=#{id}
+    </update>
+
+    <select id="getTemplateById" parameterType="string" resultType="MsgTemplateBO">
+        SELECT
+            ID ,
+            platform_id ,
+            template_code ,
+            template_name ,
+            template_type,
+            template_content ,
+            template_example ,
+            remark ,
+            CREATED_TIME ,
+            MODIFIED_TIME ,
+            IS_DELETED
+        FROM
+            bizcloud_notify_template
+        WHERE id = #{id}
+    </select>
+
+
+    <select id="getTemplateByIds" parameterType="list" resultType="MsgTemplateBO">
+        SELECT ID , platform_id , template_code , template_name , template_type, template_content , template_example , remark , CREATED_TIME , MODIFIED_TIME , IS_DELETED
+        FROM bizcloud_notify_template
+        WHERE id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        AND is_deleted = 0
+    </select>
+
+    <select id="getAllTemplates"  parameterType="string" resultType="MsgTemplateBO">
+        SELECT ID , platform_id , template_code , template_name , template_type, template_content , template_example , remark , CREATED_TIME , MODIFIED_TIME , IS_DELETED
+        FROM bizcloud_notify_template
+        WHERE is_deleted = 0
+        AND platform_id=#{platformId}
+    </select>
+
+
+    <select id="getTemplatesByCondition" parameterType="MsgTemplateVO" resultType="MsgTemplateBO">
+        SELECT ID , platform_id , template_code , template_name , template_type, template_content , template_example , remark , CREATED_TIME , MODIFIED_TIME , IS_DELETED
+        FROM bizcloud_notify_template
+        WHERE
+        1 = 1
+        <if test="templateIds!=null and templateIds.size > 0">
+            and id IN
+            <foreach item="id" collection="templateIds" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+        </if>
+        <if test="id!=null and id!=''">
+            and id = #{id}
+        </if>
+        <if test="templateType!=null and templateType!=''">
+            AND template_type=#{templateType}
+        </if>
+        <if test="platformId!=null and platformId!=''">
+            AND platform_id=#{platformId}
+        </if>
+        <if test="templateName!=null and templateName!=''">
+            AND template_name=#{templateName}
+        </if>
+        AND is_deleted = 0
+    </select>
+</mapper>

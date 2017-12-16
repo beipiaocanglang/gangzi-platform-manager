@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+    
+	<!-- 未分类的公共配置 -->
+	
+	<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="customEditors">
+			<map>
+				<entry key="java.util.Date" value="com.bizcloud.framework.util.propertyeditor.DateEditor" />
+				<entry key="java.math.BigDecimal" value="com.bizcloud.framework.util.propertyeditor.BigDecimalEditor" />
+				<entry key="java.util.Map" value="com.bizcloud.framework.util.propertyeditor.StringMapEditor"/>
+				<entry key="java.util.List" value="com.bizcloud.framework.util.propertyeditor.StringListEditor"/>
+			</map>
+		</property>
+	</bean>
+	
+	
+</beans>

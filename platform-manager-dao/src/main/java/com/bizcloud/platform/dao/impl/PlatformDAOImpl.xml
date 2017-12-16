@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bizcloud.platform.dao.PlatformDAO">
+
+    <insert id="savePlatformBO" parameterType="PlatformBO">
+        insert into bizcloud_platform ( ID, PLATFORM_CODE, PLATFORM_NAME, mall_url, distribution_url, app_id, merchant_id, pay_secret_key, pay_cert_path, pay_cert_password, pay_desc, mall_site_id, dis_site_id, sms_mall_auth_code, shop_id, cookies_domain, pay_order_source, banner_config_string, hot_goods_config_string, value_goods_config_string, new_goods_config_string, qiniu_access_key, qiniu_secert_key, qiniu_bucket, post_fee_label, json_content, CREATED_TIME, MODIFIED_TIME, PLATFORM_STATUS, IS_DELETED)
+        values (#{id}, #{platformCode}, #{platformName}, #{mallUrl},  #{distributionUrl}, #{appId}, #{merchantId}, #{paySecretKey}, #{payCertPath}, #{payCertPassword}, #{payDesc}, #{mallSiteId}, #{disSiteId}, #{smsMallAuthCode}, #{shopId}, #{cookiesDomain}, #{payOrderSource}, #{bannerConfigString}, #{hotGoodsConfigString}, #{valueGoodsConfigString}, #{newGoodsConfigString}, #{qiniuAccessKey}, #{qiniuSecertKey}, #{qiniuBucket}, #{postFeeLabel},#{jsonContent}, #{createdTime}, #{modifiedTime}, #{platformStatus}, #{isDeleted})
+    </insert>
+
+    <delete id="deletePlatformBOById" parameterType="string">
+        update bizcloud_platform SET is_deleted=1
+        WHERE id = #{id}
+    </delete>
+
+    <update id="updatePlatformBO" parameterType="PlatformBO">
+        UPDATE bizcloud_platform
+        SET MODIFIED_TIME=#{modifiedTime}
+        <if test="platformCode!=null and platformCode!=''">,PLATFORM_CODE=#{platformCode}</if>
+        <if test="platformName!=null and platformName!=''">,PLATFORM_NAME=#{platformName}</if>
+        <if test="mallUrl!=null and mallUrl!=''">,mall_url=#{mallUrl}</if>
+        <if test="distributionUrl!=null and distributionUrl!=''">,distribution_url=#{distributionUrl}</if>
+        <if test="appId!=null and appId!=''">,app_id=#{appId}</if>
+        <if test="merchantId!=null and merchantId!=''">,merchant_id=#{merchantId}</if>
+        <if test="paySecretKey!=null and paySecretKey!=''">,pay_secret_key=#{paySecretKey}</if>
+        <if test="payCertPath!=null and payCertPath!=''">,pay_cert_path=#{payCertPath}</if>
+        <if test="payCertPassword!=null and payCertPassword!=''">,pay_cert_password=#{payCertPassword}</if>
+        <if test="payDesc!=null and payDesc!=''">,pay_desc=#{payDesc}</if>
+        <if test="mallSiteId!=null and mallSiteId!=''">,mall_site_id=#{mallSiteId}</if>
+        <if test="disSiteId!=null and disSiteId!=''">,dis_site_id=#{disSiteId}</if>
+        <if test="smsMallAuthCode!=null and smsMallAuthCode!=''">,sms_mall_auth_code=#{smsMallAuthCode}</if>
+        <if test="shopId!=null and shopId!=''">,shop_id=#{shopId}</if>
+        <if test="cookiesDomain!=null and cookiesDomain!=''">,cookies_domain=#{cookiesDomain}</if>
+        <if test="payOrderSource!=null and payOrderSource!=''">,pay_order_source=#{payOrderSource}</if>
+        <if test="bannerConfigString!=null and bannerConfigString!=''">,banner_config_string=#{bannerConfigString}</if>
+        <if test="hotGoodsConfigString!=null and hotGoodsConfigString!=''">,hot_goods_config_string=#{hotGoodsConfigString}</if>
+        <if test="valueGoodsConfigString!=null and valueGoodsConfigString!=''">,value_goods_config_string=#{valueGoodsConfigString}</if>
+        <if test="newGoodsConfigString!=null and newGoodsConfigString!=''">,new_goods_config_string=#{newGoodsConfigString}</if>
+        <if test="qiniuAccessKey!=null and qiniuAccessKey!=''">,qiniu_access_key=#{qiniuAccessKey}</if>
+        <if test="qiniuSecertKey!=null and qiniuSecertKey!=''">,qiniu_secert_key=#{qiniuSecertKey}</if>
+        <if test="qiniuBucket!=null and qiniuBucket!=''">,qiniu_bucket=#{qiniuBucket}</if>
+        <if test="postFeeLabel!=null and postFeeLabel!=''">,post_fee_label=#{postFeeLabel}</if>
+        <if test="jsonContent!=null and jsonContent!=''">,json_content=#{jsonContent}</if>
+        <if test="platformStatus!=null and platformStatus!=''">,PLATFORM_STATUS=#{platformStatus}</if>
+        <if test="isDeleted!=null and isDeleted!=''">,is_deleted=#{isDeleted}</if>
+        WHERE id=#{id}
+    </update>
+
+    <select id="getPlatformBOById" parameterType="string" resultType="PlatformBO">
+        SELECT
+            ID ,
+            PLATFORM_CODE ,
+            PLATFORM_NAME ,
+            mall_url ,
+            distribution_url ,
+            app_id ,
+            merchant_id ,
+            pay_secret_key ,
+            pay_cert_path ,
+            pay_cert_password ,
+            pay_desc ,
+            mall_site_id ,
+            dis_site_id ,
+            sms_mall_auth_code ,
+            shop_id ,
+            cookies_domain ,
+            pay_order_source ,
+            banner_config_string ,
+            hot_goods_config_string ,
+            value_goods_config_string ,
+            new_goods_config_string ,
+            qiniu_access_key ,
+            qiniu_secert_key ,
+            qiniu_bucket ,
+            post_fee_label ,
+            json_content ,
+            CREATED_TIME ,
+            MODIFIED_TIME ,
+            PLATFORM_STATUS ,
+            IS_DELETED
+        FROM
+            bizcloud_platform
+        WHERE id = #{id}
+    </select>
+
+
+    <select id="getPlatformNameByIds" parameterType="list" resultType="PlatformBO">
+        SELECT ID, PLATFORM_CODE, PLATFORM_NAME, mall_url, distribution_url, app_id, merchant_id, pay_secret_key, pay_cert_path, pay_cert_password, pay_desc, mall_site_id, dis_site_id, sms_mall_auth_code, shop_id, cookies_domain, pay_order_source, banner_config_string, hot_goods_config_string, value_goods_config_string, new_goods_config_string, qiniu_access_key, qiniu_secert_key, qiniu_bucket, post_fee_label, json_content, CREATED_TIME, MODIFIED_TIME, PLATFORM_STATUS, IS_DELETED
+        FROM bizcloud_platform
+        WHERE id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        AND is_deleted = 0
+    </select>
+
+    <select id="getAllPlatforms"  resultType="PlatformBO">
+        SELECT ID, PLATFORM_CODE, PLATFORM_NAME, mall_url, distribution_url, app_id, merchant_id, pay_secret_key, pay_cert_path, pay_cert_password, pay_desc, mall_site_id, dis_site_id, sms_mall_auth_code, shop_id, cookies_domain, pay_order_source, banner_config_string, hot_goods_config_string, value_goods_config_string, new_goods_config_string, qiniu_access_key, qiniu_secert_key, qiniu_bucket, post_fee_label, json_content, CREATED_TIME, MODIFIED_TIME, PLATFORM_STATUS, IS_DELETED
+        FROM bizcloud_platform
+        WHERE is_deleted = 0
+    </select>
+
+
+    <select id="getAllPlatformCodes"  resultType="string">
+        SELECT PLATFORM_CODE
+        FROM bizcloud_platform
+        WHERE is_deleted = 0
+    </select>
+
+
+    <select id="getPlatformsByCondition" parameterType="PlatformVO" resultType="PlatformBO">
+        SELECT ID, PLATFORM_CODE, PLATFORM_NAME, mall_url, distribution_url, app_id, merchant_id, pay_secret_key, pay_cert_path, pay_cert_password, pay_desc, mall_site_id, dis_site_id, sms_mall_auth_code, shop_id, cookies_domain, pay_order_source, banner_config_string, hot_goods_config_string, value_goods_config_string, new_goods_config_string, qiniu_access_key, qiniu_secert_key, qiniu_bucket, post_fee_label, json_content, CREATED_TIME, MODIFIED_TIME, PLATFORM_STATUS, IS_DELETED
+        FROM bizcloud_platform
+        WHERE
+        1 = 1
+        <if test="platformIds!=null and platformIds.size > 0">
+            and id IN
+            <foreach item="id" collection="platformIds" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+        </if>
+        <if test="id!=null and id!=''">
+            and id = #{id}
+        </if>
+        <if test="platformCode!=null and platformCode!=''">
+            AND PLATFORM_CODE=#{platformCode}
+        </if>
+        <if test="appId!=null and appId!=''">
+            AND app_id=#{appId}
+        </if>
+        AND is_deleted = 0
+    </select>
+</mapper>
